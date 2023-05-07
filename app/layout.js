@@ -1,5 +1,14 @@
-import "./globals.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { config } from "@fortawesome/fontawesome-svg-core";
+
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+
+import "./globals.css";
+
+config.autoAddCss = false;
 
 export const metadata = {
   title: "To Do App",
@@ -11,7 +20,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <Navbar />
-        {children}
+        <Sidebar />
+        <section className="md:ml-[25%] mx-4 my-6">{children}</section>
       </body>
     </html>
   );
