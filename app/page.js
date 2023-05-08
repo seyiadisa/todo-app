@@ -43,6 +43,7 @@ export default function Home() {
 
   const todoItems = todos.map((todo) => (
     <Todo
+      key={todo.id}
       title={todo.title}
       description={todo.description}
       completed={todo.completed}

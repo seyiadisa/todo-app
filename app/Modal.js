@@ -1,22 +1,24 @@
 import "./css/modal.css";
 
+import { useEffect, useState } from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 export default function Modal({ isOpen, closeModal, title, description }) {
-  let modal;
+  const [titleValue, setTitleValue] = useState(title);
 
-  if (window.document) {
-    modal = document.querySelector(".overlay");
-  }
+  useEffect(() => {
+    if (typeof window != "undefined") {
+      const modal = document.querySelector(".overlay");
 
-  if (isOpen) {
-    modal.style.display = "flex";
-  } else {
-    if (modal) {
-      modal.style.display = "none";
+      if (isOpen) {
+        modal.style.display = "flex";
+      } else {
+        modal.style.display = "none";
+      }
     }
-  }
+  });
 
   function handleSaveTodo() {
     const title = document.querySelector("input").value;
@@ -38,7 +40,8 @@ export default function Modal({ isOpen, closeModal, title, description }) {
         <input
           type="text"
           className="p-2 w-full mt-10 border"
-          value={title ? title : ""}
+          value={titleValue}
+          onChange={(e) => setTitleValue(e.target.value)}
           placeholder="Add title"
         />
         <textarea

@@ -11,7 +11,6 @@ export default function Todo({ title, description, completed, onClick }) {
     const todoTitle = document.getElementById("todo-title");
 
     if (checked) {
-      alert(todoTitle.textContent);
       todoTitle.style.textDecoration = "linethrough";
     }
   }
@@ -23,7 +22,7 @@ export default function Todo({ title, description, completed, onClick }) {
         name="check"
         className="accent-slate-700"
         style={{ transform: "scale(1.25)" }}
-        onClick={changeCheck}
+        onChange={changeCheck}
         checked={checked}
       />
       <label
