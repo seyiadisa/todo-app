@@ -19,9 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <Sidebar />
-        <section className="md:ml-[25%] mx-4 my-6">{children}</section>
+        <section className=" mx-4 my-6">{children}</section>
       </body>
     </html>
   );

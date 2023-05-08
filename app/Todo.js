@@ -11,23 +11,25 @@ export default function Todo({ title, description, completed, onClick }) {
   }
 
   return (
-    <div className="shadow-md px-4 py-4 my-2 w-full lg:w-2/3">
+    <div className="flex flex-row flex-nowrap items-center shadow-md px-4 py-4 my-2 w-full lg:w-2/3">
       <input
         type="checkbox"
         name="check"
         id=""
-        className="check accent-slate-700"
+        className="accent-slate-700"
         style={{ transform: "scale(1.25)" }}
         onClick={changeCheck}
         checked={checked}
       />
-      <label className="text-lg ml-6">{title}</label>
+      <label className="text-lg ml-6 basis-4/5 sm:basis-5/6 md:basis-11/12">
+        {title}
+      </label>
       <FontAwesomeIcon
         icon={faEdit}
         className="mr-auto"
-        onClick={() => onClick({ title })}
+        onClick={() => onClick({ title, description })}
       />
-      <FontAwesomeIcon icon={faTrash} className="mr-auto" />
+      <FontAwesomeIcon icon={faTrash} className="ml-4" />
     </div>
   );
 }

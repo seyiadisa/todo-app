@@ -3,11 +3,11 @@ import "./css/modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons";
 
-export default function Modal({ isOpen, closeModal, title }) {
+export default function Modal({ isOpen, closeModal, title, description }) {
   let modal;
 
   if (window.document) {
-    modal = document.getElementsByClassName("overlay")[0];
+    modal = document.querySelector(".overlay");
   }
 
   if (isOpen) {
@@ -18,24 +18,36 @@ export default function Modal({ isOpen, closeModal, title }) {
     }
   }
 
+  function handleSaveTodo() {
+    const title = document.querySelector("input").value;
+    const description = document.querySelector("textarea").value;
+    const now = new Date(Date()).getUTCMonth();
+    alert(now);
+  }
+
   return (
     <div className="overlay">
-      <div className="modal p-4 w-3/4 sm:w-3/5 lg:w-2/5">
+      <div className="modal p-6 w-3/4 sm:w-3/5 lg:w-2/5">
         <div className="flex flex-row flex-nowrap justify-between mb-2">
-          <p className="text-xl">{title ? "Update" : "Add"} Task</p>
+          <p className="text-2xl">{title ? "Update" : "Add"} Task</p>
           <button type="button" onClick={closeModal}>
             <FontAwesomeIcon icon={faClose} />
           </button>
         </div>
         <hr />
-        <div className="flex flex-row flex-nowrap justify-between mt-10 items-center">
-          <input
-            type="text"
-            className="px-2 py-2 w-4/5"
-            value={title ? title : ""}
-          />
-          <FontAwesomeIcon icon={faEdit} style={{ transform: "scale(1.25)" }} />
-        </div>
+        <input
+          type="text"
+          className="p-2 w-full mt-10 border"
+          value={title ? title : ""}
+          placeholder="Add title"
+        />
+        <textarea
+          rows="5"
+          className="p-2 mt-4 w-full border resize-none"
+          placeholder="Add description"
+        >
+          {description}
+        </textarea>
         <div className="text-right mt-10">
           <button
             type="button"
@@ -44,7 +56,11 @@ export default function Modal({ isOpen, closeModal, title }) {
           >
             Close
           </button>
-          <button type="button" className="btn bg-slate-700 text-white">
+          <button
+            type="button"
+            className="btn bg-slate-700 text-white"
+            onClick={handleSaveTodo}
+          >
             Save
           </button>
         </div>

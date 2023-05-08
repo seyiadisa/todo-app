@@ -50,9 +50,9 @@ export default function Home() {
     />
   ));
 
-  function openModal(modalProps) {
+  function openModal(props) {
     setIsOpen(true);
-    setModalProps(modalProps);
+    setModalProps(props);
   }
 
   function closeModal() {
