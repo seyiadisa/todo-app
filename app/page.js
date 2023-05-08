@@ -60,13 +60,23 @@ export default function Home() {
     setModalProps({});
   }
 
+  function updateTodo() {}
+
+  function deleteTodo() {}
+
   return (
     <>
       <Modal isOpen={isOpen} closeModal={closeModal} {...modalProps} />
 
       <div className="mx-8 lg:mx-24">
         <div className="flex flex-row justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold">{daysList.at(date.getDay())}</h1>
+          <h1 className="text-3xl font-bold">
+            {date.toLocaleString("default", {
+              weekday: "long",
+              day: "2-digit",
+              month: "short",
+            })}
+          </h1>
           <button
             type="button"
             className="flex justify-center items-center w-10 h-10 rounded-full bg-slate-700 hover:bg-slate-500 text-white"

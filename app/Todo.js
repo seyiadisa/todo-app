@@ -8,6 +8,12 @@ export default function Todo({ title, description, completed, onClick }) {
 
   function changeCheck() {
     setChecked(!checked);
+    const todoTitle = document.getElementById("todo-title");
+
+    if (checked) {
+      alert(todoTitle.textContent);
+      todoTitle.style.textDecoration = "linethrough";
+    }
   }
 
   return (
@@ -15,13 +21,15 @@ export default function Todo({ title, description, completed, onClick }) {
       <input
         type="checkbox"
         name="check"
-        id=""
         className="accent-slate-700"
         style={{ transform: "scale(1.25)" }}
         onClick={changeCheck}
         checked={checked}
       />
-      <label className="text-lg ml-6 basis-4/5 sm:basis-5/6 md:basis-11/12">
+      <label
+        id="todo-title"
+        className="text-lg ml-6 basis-4/5 sm:basis-5/6 md:basis-11/12"
+      >
         {title}
       </label>
       <FontAwesomeIcon
