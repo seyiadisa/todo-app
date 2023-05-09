@@ -8,13 +8,16 @@ export default function Todo({
   title,
   description,
   completed,
+  onComplete,
   onDelete,
   openModal,
 }) {
   const [checked, setChecked] = useState(completed);
 
-  function changeCheck() {
-    setChecked(!checked);
+  async function changeCheck() {
+    onComplete(id, !checked).then((res) => {
+      setChecked(!checked);
+    });
   }
 
   const todoStyle = {
@@ -44,7 +47,7 @@ export default function Todo({
       <FontAwesomeIcon
         icon={faEdit}
         className="mr-auto hover:text-green-600"
-        onClick={() => openModal({ id, title, description })}
+        onClick={() => openModal(id)}
       />
       <FontAwesomeIcon
         icon={faTrash}

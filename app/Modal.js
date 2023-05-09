@@ -22,9 +22,12 @@ export default function Modal({
   };
 
   useEffect(() => {
-    if (title) {
+    if (id) {
       setTitleValue(title);
       setDesc(description);
+    } else {
+      setTitleValue("");
+      setDesc("");
     }
   }, [title, description]);
 
