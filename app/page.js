@@ -9,20 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [modalProps, setModalProps] = useState({});
-  const date = new Date(Date());
-  const daysList = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  const todos = [
+  const list = [
     {
       id: 3,
       title: "Walk my dog",
@@ -40,14 +27,29 @@ export default function Home() {
       updatedAt: "2023-05-04T22:43:33.143+01:00",
     },
   ];
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalProps, setModalProps] = useState({});
+  const [todos, setTodos] = useState(list);
+  const date = new Date(Date());
+  const daysList = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   const todoItems = todos.map((todo) => (
     <Todo
       key={todo.id}
+      id={todo.id}
       title={todo.title}
       description={todo.description}
       completed={todo.completed}
-      onClick={openModal}
+      onDelete={handleDeleteTodo}
+      openModal={openModal}
     />
   ));
 
@@ -61,13 +63,49 @@ export default function Home() {
     setModalProps({});
   }
 
-  function updateTodo() {}
+  function handleAddTodo(todo) {
+    setTodos([
+      ...todos,
+      {
+        id: todos.length ? todos[todos.length - 1].id + 1 : 1,
+        title: todo.title,
+        description: todo.description,
+        completed: false,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      },
+    ]);
+  }
+  function handleUpdateTodo(todo) {
+    setTodos(
+      todos.map((t) => {
+        if (t.id == todo.id) {
+          return {
+            ...t,
+            title: todo.title,
+            description: todo.description,
+            updatedAt: Date.now(),
+          };
+        } else {
+          return t;
+        }
+      })
+    );
+  }
 
-  function deleteTodo() {}
+  function handleDeleteTodo(id) {
+    setTodos(todos.filter((t) => t.id != id));
+  }
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal} {...modalProps} />
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        onAdd={handleAddTodo}
+        onUpdate={handleUpdateTodo}
+        {...modalProps}
+      />
 
       <div className="mx-8 lg:mx-24">
         <div className="flex flex-row justify-between items-center mb-8">

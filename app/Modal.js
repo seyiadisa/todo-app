@@ -5,33 +5,48 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons";
 
-export default function Modal({ isOpen, closeModal, title, description }) {
+export default function Modal({
+  isOpen,
+  closeModal,
+  onAdd,
+  onUpdate,
+  id,
+  title,
+  description,
+}) {
   const [titleValue, setTitleValue] = useState(title);
+  const [desc, setDesc] = useState("");
+
+  const overlayStyle = {
+    display: isOpen ? "flex" : "none",
+  };
 
   useEffect(() => {
-    if (typeof window != "undefined") {
-      const modal = document.querySelector(".overlay");
-
-      if (isOpen) {
-        modal.style.display = "flex";
-      } else {
-        modal.style.display = "none";
-      }
+    if (title) {
+      setTitleValue(title);
+      setDesc(description);
     }
-  });
+  }, [title, description]);
 
-  function handleSaveTodo() {
-    const title = document.querySelector("input").value;
-    const description = document.querySelector("textarea").value;
-    const now = new Date(Date()).getUTCMonth();
-    alert(now);
+  function handleSave() {
+    if (!titleValue) {
+      alert("Please add a title");
+      return;
+    }
+    if (id) {
+      onUpdate({ id, title: titleValue, description: desc });
+    } else {
+      onAdd({ id, title: titleValue, description: desc });
+    }
+
+    closeModal();
   }
 
   return (
-    <div className="overlay">
+    <div className="overlay" style={overlayStyle}>
       <div className="modal p-6 w-3/4 sm:w-3/5 lg:w-2/5">
         <div className="flex flex-row flex-nowrap justify-between mb-2">
-          <p className="text-2xl">{title ? "Update" : "Add"} Task</p>
+          <p className="text-2xl">{id ? "Update" : "Add"} Task</p>
           <button type="button" onClick={closeModal}>
             <FontAwesomeIcon icon={faClose} />
           </button>
@@ -48,9 +63,9 @@ export default function Modal({ isOpen, closeModal, title, description }) {
           rows="5"
           className="p-2 mt-4 w-full border resize-none"
           placeholder="Add description"
-        >
-          {description}
-        </textarea>
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+        ></textarea>
         <div className="text-right mt-10">
           <button
             type="button"
@@ -62,7 +77,7 @@ export default function Modal({ isOpen, closeModal, title, description }) {
           <button
             type="button"
             className="btn bg-slate-700 text-white"
-            onClick={handleSaveTodo}
+            onClick={handleSave}
           >
             Save
           </button>
