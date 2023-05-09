@@ -118,7 +118,7 @@ export default function Home() {
           </h1>
           <button
             type="button"
-            className="flex justify-center items-center w-10 h-10 rounded-full bg-slate-700 hover:bg-slate-500 text-white"
+            className="flex justify-center items-center w-10 h-10 rounded-full bg-green-700 hover:bg-green-900 text-white dark:bg-green-400 dark:hover:bg-green-200 dark:text-slate-950"
             onClick={() => openModal({})}
           >
             <FontAwesomeIcon icon={faPlus} />

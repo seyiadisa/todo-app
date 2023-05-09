@@ -17,10 +17,10 @@
 	left: 0;
 	opacity: 1 !important;
 	background-color: white;
-	@apply shadow-sm;
+	@apply shadow-sm dark:bg-gray-900;
 }
 .overlay .btn {
-	padding: 0.5rem 0.7rem;
+	padding: 0.5rem 1rem;
 	margin-left: 1rem;
 	border-radius: 4px;
 	font-size: 16px;

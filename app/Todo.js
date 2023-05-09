@@ -19,32 +19,36 @@ export default function Todo({
 
   const todoStyle = {
     textDecorationLine: checked ? "line-through" : "none",
-    color: checked ? "rgba(0,0,0,0.5)" : "inherit",
   };
 
   return (
-    <div className="flex flex-row flex-nowrap items-center shadow-md px-4 py-4 my-2 w-full lg:w-2/3">
+    <div className="flex flex-row flex-nowrap items-center shadow-md rounded px-4 py-4 my-2 w-full lg:w-2/3 dark:bg-slate-950 dark:text-slate-100">
       <div style={todoStyle} className="basis-11/12">
         <input
           type="checkbox"
-          name="check"
-          className="check accent-slate-700"
+          className="accent-green-700 dark:accent-green-400"
           style={{ transform: "scale(1.25)" }}
           onChange={changeCheck}
           checked={checked}
         />
-        <label id="todo-title" onClick={changeCheck} className="text-lg ml-6">
+        <label
+          id="todo-title"
+          onClick={changeCheck}
+          className={`text-lg ml-6 ${
+            checked ? "text-gray-500 dark:text-gray-300" : ""
+          }`}
+        >
           {title}
         </label>
       </div>
       <FontAwesomeIcon
         icon={faEdit}
-        className="mr-auto"
+        className="mr-auto hover:text-green-600"
         onClick={() => openModal({ id, title, description })}
       />
       <FontAwesomeIcon
         icon={faTrash}
-        className="ml-4"
+        className="ml-4 hover:text-red-700"
         onClick={() => onDelete(id)}
       />
     </div>

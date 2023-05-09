@@ -3,7 +3,7 @@ import "./css/modal.css";
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 export default function Modal({
   isOpen,
@@ -14,7 +14,7 @@ export default function Modal({
   title,
   description,
 }) {
-  const [titleValue, setTitleValue] = useState(title);
+  const [titleValue, setTitleValue] = useState("");
   const [desc, setDesc] = useState("");
 
   const overlayStyle = {
@@ -44,7 +44,7 @@ export default function Modal({
 
   return (
     <div className="overlay" style={overlayStyle}>
-      <div className="modal p-6 w-3/4 sm:w-3/5 lg:w-2/5">
+      <div className="modal p-6 w-3/4 sm:w-3/5 lg:w-2/5 rounded-md">
         <div className="flex flex-row flex-nowrap justify-between mb-2">
           <p className="text-2xl">{id ? "Update" : "Add"} Task</p>
           <button type="button" onClick={closeModal}>
@@ -54,14 +54,14 @@ export default function Modal({
         <hr />
         <input
           type="text"
-          className="p-2 w-full mt-10 border"
+          className="p-2 w-full mt-10 border rounded dark:bg-slate-950 dark:border-none"
           value={titleValue}
           onChange={(e) => setTitleValue(e.target.value)}
           placeholder="Add title"
         />
         <textarea
           rows="5"
-          className="p-2 mt-4 w-full border resize-none"
+          className="p-2 mt-4 w-full border rounded resize-none dark:bg-slate-950 dark:border-none"
           placeholder="Add description"
           value={desc}
           onChange={(e) => setDesc(e.target.value)}
@@ -69,14 +69,14 @@ export default function Modal({
         <div className="text-right mt-10">
           <button
             type="button"
-            className="btn bg-gray-300 text-black"
+            className="btn bg-gray-300 hover:bg-gray-400 text-black dark:bg-gray-50"
             onClick={closeModal}
           >
             Close
           </button>
           <button
             type="button"
-            className="btn bg-slate-700 text-white"
+            className="btn bg-green-950 hover:bg-green-800 text-white dark:bg-green-700"
             onClick={handleSave}
           >
             Save

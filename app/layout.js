@@ -1,12 +1,10 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { config } from "@fortawesome/fontawesome-svg-core";
 
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
-import "./globals.css";
+import "./css/globals.css";
 
 config.autoAddCss = false;
 
