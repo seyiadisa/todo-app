@@ -29,7 +29,7 @@ export default function Modal({
       setTitleValue("");
       setDesc("");
     }
-  }, [title, description]);
+  }, [id, title, description]);
 
   function handleSave() {
     if (!titleValue) {

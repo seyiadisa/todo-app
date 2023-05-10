@@ -13,16 +13,15 @@ export default function Home() {
   const [todos, setTodos] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [modalProps, setModalProps] = useState({});
-  const date = new Date(Date());
-  const config = {
-    baseUrl: "https://go-todo-api.onrender.com/api/todos/",
-  };
+  const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API,
+  });
 
   useEffect(() => getAllTodos(), []);
 
   function getAllTodos() {
-    axios
-      .get("https://go-todo-api.onrender.com/api/todos/")
+    axiosInstance
+      .get(`todos/`)
       .then((res) => {
         setTodos(res.data.todos);
       })
@@ -44,8 +43,8 @@ export default function Home() {
 
   function openModal(id) {
     setIsOpen(true);
-    axios
-      .get(`https://go-todo-api.onrender.com/api/todos/${id}`)
+    axiosInstance
+      .get(`todos/${id}`)
       .then((res) => {
         setModalProps({
           id: res.data.todo.id,
@@ -64,8 +63,8 @@ export default function Home() {
   }
 
   function handleAddTodo(todo) {
-    axios
-      .post(`https://go-todo-api.onrender.com/api/todos`, {
+    axiosInstance
+      .post(`todos`, {
         title: todo.title,
         description: todo.description,
       })
@@ -76,8 +75,8 @@ export default function Home() {
   }
 
   function handleUpdateTodo(todo) {
-    axios
-      .patch(`https://go-todo-api.onrender.com/api/todos/${todo.id}`, {
+    axiosInstance
+      .patch(`todos/${todo.id}`, {
         title: todo.title,
         description: todo.description,
       })
@@ -88,17 +87,16 @@ export default function Home() {
   }
 
   function handleCompleteTodo(id, checked) {
-    return axios.put(
-      `https://go-todo-api.onrender.com/api/todos/${id}/status`,
-      {
+    return axiosInstance
+      .put(`todos/${id}/status`, {
         completed: checked,
-      }
-    );
+      })
+      .catch((e) => alert(e));
   }
 
   function handleDeleteTodo(id) {
-    axios
-      .delete(`https://go-todo-api.onrender.com/api/todos/${id}`)
+    axiosInstance
+      .delete(`todos/${id}`)
       .then((res) => {
         getAllTodos();
       })
@@ -118,7 +116,7 @@ export default function Home() {
       <div className="mx-8 lg:mx-24">
         <div className="flex flex-row justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">
-            {date.toLocaleString("default", {
+            {new Date(Date()).toLocaleString("default", {
               weekday: "long",
               day: "2-digit",
               month: "short",
